@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  teca_cuda:
+    container_name: teca_cuda
+    build:
+      context: .
+      dockerfile: CUDA.dockerfile
+    # environment:
+    #   - JUPYTER_ENABLE_LAB=yes
+    volumes:
+      # - ./notebooks:/workspace/notebooks
+      - .:/workspace/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+    command: sleep infinity
